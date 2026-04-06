@@ -1,3 +1,0 @@
-# Dev tools used by GitHub Actions (flake8 + pytest)
-flake8>=7.0,<8
-pytest>=8.0,<9
