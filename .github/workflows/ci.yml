@@ -36,11 +36,4 @@ jobs:
       - name: Pytest
         env:
           PYTHONPATH: src
-        run: |
-          pytest tests -q --tb=line
-          code=$?
-          if [ "$code" -eq 5 ]; then
-            echo "No tests collected yet; treating as OK."
-            exit 0
-          fi
-          exit "$code"
+        run: pytest tests -q --tb=line
