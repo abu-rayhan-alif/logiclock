@@ -127,6 +127,23 @@ pip-compile --strip-extras --extra dev -o requirements-lock.txt pyproject.toml
 <details>
 <summary><b>GitHub Actions (yours)</b></summary>
 
+**Dedicated action repo** (`logiclock-action`, e.g. for GitHub Marketplace):
+
+```yaml
+jobs:
+  logiclock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: abu-rayhan-alif/logiclock-action@v1
+        with:
+          python-version: "3.12"
+          install-command: pip install pylogiclock
+          scan-command: logiclock --strict --no-color scan
+```
+
+**Same thing without the composite** (manual steps):
+
 ```yaml
 jobs:
   logiclock:

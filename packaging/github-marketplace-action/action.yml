@@ -1,0 +1,50 @@
+# Copy this entire file to the ROOT of a NEW public repository (e.g. logiclock-action).
+# That repo must NOT contain .github/workflows/ — required for GitHub Marketplace.
+# Add a LICENSE (same as main project) and a short README if you want.
+# Release with a semver tag and tick "Publish to GitHub Marketplace".
+#
+# Consumer workflow (their repo must checkout their code first), e.g.:
+#   - uses: abu-rayhan-alif/logiclock-action@v1
+#     with:
+#       python-version: "3.12"
+#       install-command: pip install pylogiclock
+#       scan-command: logiclock --strict --no-color scan
+
+name: "PyLogiclock CI Scan"
+description: "Set up Python, install pylogiclock, and run logiclock scan on your project."
+
+branding:
+  icon: "shield"
+  color: "blue"
+
+inputs:
+  python-version:
+    description: "Python version for actions/setup-python"
+    required: false
+    default: "3.12"
+  install-command:
+    description: >
+      Install pylogiclock from PyPI (default) or pin/git as needed.
+      Example: pip install pylogiclock==0.2.0
+    required: false
+    default: "pip install pylogiclock"
+  scan-command:
+    description: "logiclock CLI invocation for your repo"
+    required: false
+    default: "logiclock --strict --no-color scan"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install pylogiclock
+      shell: bash
+      run: ${{ inputs.install-command }}
+
+    - name: Run logiclock
+      shell: bash
+      run: ${{ inputs.scan-command }}
