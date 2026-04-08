@@ -22,6 +22,12 @@ from logiclock.core.edge_case_generator import (
     ScenarioGenerationResult,
     generate_scenarios_from_conditions,
 )
+from logiclock.core.graph_export import (
+    export_dot,
+    export_mermaid,
+    graphviz_is_available,
+    render_dot_with_graphviz,
+)
 from logiclock.core.rule_schema import (
     Rule,
     RuleSchemaError,
@@ -64,6 +70,7 @@ __all__ = [
     "detect_declared_result_conflicts",
     "findings_include_severity",
     "format_declared_result_conflict",
+    "graphviz_is_available",
     "implementation_spec_from_metadata",
     "iter_rule_usage_sites",
     "load_rule_from_dict",
@@ -71,7 +78,10 @@ __all__ = [
     "match_conditions",
     "normalize_condition_expression",
     "parse_module_logic",
+    "export_dot",
+    "export_mermaid",
     "generate_scenarios_from_conditions",
     "record_rule_usage_from_callable",
+    "render_dot_with_graphviz",
     "validate_implementation_vs_schema",
 ]

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 
+from logiclock.core import export_dot, export_mermaid, parse_module_logic
 from logiclock.reporting import exit_code_for_report, format_report_plain
 from logiclock.reporting.demo import build_sample_report
 from logiclock.reporting.terminal import format_report_terminal
@@ -61,6 +62,49 @@ def report_sample(ctx: typer.Context) -> None:
     typer.echo(text.rstrip("\n"))
     code = exit_code_for_report(report, fail_on_error=strict)
     raise typer.Exit(code=code)
+
+
+@app.command()
+def graph(
+    module_path: str = typer.Argument(
+        ...,
+        help="Python module path to parse.",
+    ),
+    format: str = typer.Option(
+        "mermaid",
+        "--format",
+        "-f",
+        help="Output format: mermaid or dot.",
+    ),
+    function: str | None = typer.Option(
+        None,
+        "--function",
+        help="Export a single function by name (default: whole module).",
+    ),
+    output: str | None = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="Write output to file instead of stdout.",
+    ),
+) -> None:
+    """Export visual logic flow as Mermaid (.mmd) or Graphviz (.dot)."""
+    parsed = parse_module_logic(module_path, decorated_only=False)
+    fmt = format.strip().lower()
+    if fmt == "mermaid":
+        text = export_mermaid(parsed, function_name=function)
+    elif fmt == "dot":
+        text = export_dot(parsed, function_name=function)
+    else:
+        raise typer.BadParameter("format must be one of: mermaid, dot")
+
+    if output:
+        from pathlib import Path
+
+        Path(output).write_text(text, encoding="utf-8")
+        typer.echo(f"wrote {fmt} graph to {output}")
+        return
+    typer.echo(text.rstrip("\n"))
 
 
 if __name__ == "__main__":
