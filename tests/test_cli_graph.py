@@ -13,6 +13,7 @@ _ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
 def _plain(text: str) -> str:
     return _ANSI_ESCAPE.sub("", text).lower()
 
+
 _FIXTURE_MODULE = (
     Path(__file__).resolve().parent / "fixtures" / "sample_module.py"
 )
