@@ -1,6 +1,11 @@
 name: "Logiclock Scan"
 description: "Install logiclock and run logiclock scan in CI"
 
+# Marketplace badge: Feather icon name and background color (see GitHub metadata docs).
+branding:
+  icon: "shield" # Feather v4.28.0 icon name — https://feathericons.com/
+  color: "blue" # One of: white, black, yellow, blue, green, orange, red, purple, gray-dark
+
 inputs:
   python-version:
     description: "Python version for setup-python"
