@@ -13,9 +13,10 @@
 name: "PyLogiclock CI Scan"
 description: "Set up Python, install pylogiclock, and run logiclock scan on your project."
 
+# Marketplace badge: Feather icon name and background color (see GitHub metadata docs).
 branding:
-  icon: "shield"
-  color: "blue"
+  icon: "shield" # Feather v4.28.0 icon name — https://feathericons.com/
+  color: "blue" # One of: white, black, yellow, blue, green, orange, red, purple, gray-dark
 
 inputs:
   python-version:
@@ -25,7 +26,7 @@ inputs:
   install-command:
     description: >
       Install pylogiclock from PyPI (default) or pin/git as needed.
-      Example: pip install pylogiclock==0.2.0
+      Example: pip install pylogiclock==0.3.0
     required: false
     default: "pip install pylogiclock"
   scan-command:
